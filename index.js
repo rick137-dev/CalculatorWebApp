@@ -9,6 +9,8 @@ var calculatorAppState = {
  * The algorithm uses a semi-recursive method
  * It goes over the array of symbols and calculates the result prioritizing multiplication, then division, then signed addition
  * When encountering an opening bracket it uses a recursive approach to calculate the content inside the brackets and returns the result
+ * It does 2 passes, one to resolve brackets, multiplication and division constructing a stack
+ * Second pass resolves the stack into a final number
  */
 
 
@@ -52,41 +54,15 @@ const evaluateExpression = function (value1, value2, operation){
 
 calculatorAppState.calculateValue = function calc(index) {
 
-    let currSum =0;
-    let currIndex;
+    const addStack = [];
 
     let currNumber =0;
-    
-    let currElement;
 
-    for(currIndex = index; currIndex<this.symbolList.length;currIndex++){
-        currElement = this.symbolList[currIndex];
+    for(let i = index;i<this.symbolList.length;i++){
+        const currElement = this.symbolList[i];
 
-        if(evaluateExpression(currSum,currNumber,currElement)){ //means currElement is an operation
-            currSum = evaluateExpression(currSum,currNumber,currElement);
-            currNumber = 0;
-        }
-        
-         else if(currElement === "("){
-            
-            
-        }
-         else if(currElement === ")"){
-            return {sum: currSum,
-                index: currIndex};
-            
-        }
-        else{
-
-            currNumber  = currNumber*10 + currElement;
-        }
-
-
+       
     }
-
-
-   return {sum : currSum,
-    index: currIndex};
 }
 
 calculatorAppState.calcState = function () {
